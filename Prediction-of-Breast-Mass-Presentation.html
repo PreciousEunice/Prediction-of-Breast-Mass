@@ -3154,13 +3154,15 @@ str(df)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Prediction Model</h2></hgroup><article  id="prediction-model">
 
-<p>-A prediction model was built using logistic regression.</p>
+<p>-The application uses this model to predict the breast mass classification of future tissue specimen. The user selects the grade of each variable and the application produces an output which classifies the breast mass as &ldquo;benign&rdquo; or &ldquo;malignant&rdquo;.</p>
 
-<pre class = 'prettyprint lang-r'>model &lt;- glm(Class~., data=df, family=binomial)</pre>
-
-<p>-The application uses this model to predict the breast mass classification of future tissue specimen.</p>
-
-<p>-The user selects the grade of each variable and the application produces an output which classifies the breast mass as &ldquo;benign&rdquo; or &ldquo;malignant&rdquo;.</p>
+<pre class = 'prettyprint lang-r'>model &lt;- glm(Class~., data=df, family=binomial)
+breast &lt;- data.frame(Cl.thickness=input$thick,Cell.size=input$size,Cell.shape=input$shape,
+          Marg.adhesion=input$margin,Epith.c.size=input$epith,Bl.cromatin=input$chr,
+          Normal.nucleoli=input$nuc,Mitoses=input$mit)
+pred &lt;- predict(model, newdata=breast, type=&quot;response&quot;)
+predicted &lt;- ifelse(pred&gt;0.5, &quot;malignant&quot;, &quot;benign&quot;)
+predicted</pre>
 
 <p>-The application is hosted at <a href='https://preciouseunice.shinyapps.io/dataproductproject/' title=''>https://preciouseunice.shinyapps.io/dataproductproject/</a>.</p>
 

@@ -481,7 +481,15 @@ str(df)</code></pre>
 ## AIC: 1225.3
 ## 
 ## Number of Fisher Scoring iterations: 19</code></pre>
-<p>The application uses this model to predict the breast mass classification of future tissue specimen. The user selects the grade of each variable and the application produces an output which classifies the breast mass as “benign” or “malignant”.</p>
+<p>The application uses this model to predict the breast mass classification of future tissue specimen. The user selects the grade of each variable and the application produces an output which classifies the breast mass as “benign” or “malignant”. The server does the following calculation.</p>
+<pre class="r"><code>model &lt;- glm(Class~., data=df, family=binomial)
+breast &lt;- data.frame(Cl.thickness=input$thick,Cell.size=input$size,Cell.shape=input$shape,
+          Marg.adhesion=input$margin,Epith.c.size=input$epith,Bl.cromatin=input$chr,
+          Normal.nucleoli=input$nuc,Mitoses=input$mit)
+pred &lt;- predict(model, newdata=breast, type=&quot;response&quot;)
+predicted &lt;- ifelse(pred&gt;0.5, &quot;malignant&quot;, &quot;benign&quot;)
+predicted</code></pre>
+<p>-The application is hosted at <a href="https://preciouseunice.shinyapps.io/dataproductproject/" class="uri">https://preciouseunice.shinyapps.io/dataproductproject/</a>.</p>
 
 
 

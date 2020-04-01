@@ -28,14 +28,16 @@ str(df)
 ```
 
 ## Prediction Model
--A prediction model was built using logistic regression.
+-The application uses this model to predict the breast mass classification of future tissue specimen.  The user selects the grade of each variable and the application produces an output which classifies the breast mass as "benign" or "malignant".
 ```{r, echo=TRUE, eval=FALSE}
 model <- glm(Class~., data=df, family=binomial)
+breast <- data.frame(Cl.thickness=input$thick,Cell.size=input$size,Cell.shape=input$shape,
+          Marg.adhesion=input$margin,Epith.c.size=input$epith,Bl.cromatin=input$chr,
+          Normal.nucleoli=input$nuc,Mitoses=input$mit)
+pred <- predict(model, newdata=breast, type="response")
+predicted <- ifelse(pred>0.5, "malignant", "benign")
+predicted
 ```
--The application uses this model to predict the breast mass classification of future tissue specimen.
-
--The user selects the grade of each variable and the application produces an output which classifies the breast mass as "benign" or "malignant".
-
 -The application is hosted at https://preciouseunice.shinyapps.io/dataproductproject/.
 
 ## Prediction of Breast Mass Application
