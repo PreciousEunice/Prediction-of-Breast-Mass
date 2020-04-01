@@ -1,0 +1,43 @@
+---
+title: "Prediction of Breast Mass"
+author: "Precious Eunice Grullo"
+date: "4/1/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Dataset
+-This application use the dataset "BreastCancer" from the "mlbench" r package.  
+
+-The dataset has 699 observations of 9 variables.  
+
+-The outcome is the variable "class" which classifies the breast mass as benign or malignant.  
+
+-The other eight variables are histopathological descriptions.  
+
+## Dataset
+
+```{r, eval=TRUE}
+library(mlbench)
+data("BreastCancer")
+df <- BreastCancer[,-c(1,7)]
+str(df)
+```
+
+## Prediction Model
+-A prediction model was built using logistic regression.
+```{r, echo=TRUE, eval=FALSE}
+model <- glm(Class~., data=df, family=binomial)
+```
+-The application uses this model to predict the breast mass classification of future tissue specimen.
+
+-The user selects the grade of each variable and the application produces an output which classifies the breast mass as "benign" or "malignant".
+
+-The application is hosted at https://preciouseunice.shinyapps.io/dataproductproject/.
+
+## Prediction of Breast Mass Application
+![Prediction of Breast Mass](Prediction App.png)
+
